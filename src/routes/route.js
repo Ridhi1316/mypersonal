@@ -17,6 +17,21 @@ router.get('/test-me', function (req, res) {
     res.send('My first ever api!')
 });
 
+router.get('/getmissing', function (req, res) {
+   let arr=[1,2,3,5,6,7,8]
+   let missing;
+   for (let i=0;i<arr.length-1;i++){
+   if(arr.indexOf(i)==-1){
+       missing=i
+   }
+   }
+  
+    console.log(missing);
+    console.log('My Missing api! loving with functionup')
+    res.send(missing)
+
+});
+
 router.get('/hello', function (req, res) {
 // Problem a)
 let months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
@@ -44,7 +59,15 @@ console.log('The object created from arrays is :', lodash.fromPairs(arrayOfKeyVa
 });
 
 
+router.post('/test-me3',function(req,res){
+let a=req.body.number
+console.log(a)
+let arr=[2,3,5,7]
+arr.push(a)
+res.send({msg:"post req 3",data:arr})
+});
 
 
 module.exports = router;
 // adding this comment for no reason
+
