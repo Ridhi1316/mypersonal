@@ -1,26 +1,25 @@
 const express = require('express');
 const router = express.Router();
+const bookModel=require("../models/bookModel")
 // const UserModel= require("../models/userModel.js")
-const UserController= require("../controllers/userController")
 const BookController= require("../controllers/bookController")
+const BkController= require("../controllers/allController")
 
 router.get("/test-me", function (req, res) {
     res.send("My first ever api!")
 })
 
-router.post("/createUser", UserController.createUser  )
+router.post("/createBook", BkController.createBook  )
+router.post("/createAuthor", BkController.createAuthor  )
+router.get("/allBooks",BkController.allBooks)
+router.get("/updateBkPrice",BkController.updateBkPrice)
+router.get("/authName",BkController.authName)
 
-router.get("/getUsersData", UserController.getUsersData)
-
-router.post("/createBook", BookController.createBook  )
-
-router.get("/getBooksData", BookController.getBooksData)
-
-router.post("/updateBooks", BookController.updateBooks)
-router.post("/deleteBooks", BookController.deleteBooks)
+//router.post("/updateBooks", BookController.updateBooks)
+//router.post("/deleteBooks", BookController.deleteBooks)
 
 //MOMENT JS
-const moment = require('moment');
+/* const moment = require('moment');
 router.get("/dateManipulations", function (req, res) {
     
     // const today = moment();
@@ -33,9 +32,9 @@ router.get("/dateManipulations", function (req, res) {
     const dateB = moment('01-01-2000', 'DD-MM-YYYY');
 
     let x= dateB.diff(dateA, "days")
-    console.log(x)
+    console.log(x) 
 
-    res.send({ msg: "all good"})
-})
+    res.send({ msg: "all good"}) 
+})*/
 
 module.exports = router;
