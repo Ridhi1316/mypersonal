@@ -41,11 +41,11 @@ const loginUser = async function (req, res) {
 };
 
 const getUserData = async function (req, res) {
-  let token = req.headers["x-Auth-token"];
-  if (!token) token = req.headers["x-auth-token"];
+  let token = req.headers["x-Auth-token"] 
+  if (!token) token =  req.headers["x-auth-token"];
 
   //If no token is present in the request header return error
-  if (!token) return res.send({ status: false, msg: "token must be present" });
+  if (!token) return res.send({ status: false, msg: "token must be present in header" });
 
   console.log(token);
   
@@ -80,11 +80,26 @@ const updateUser = async function (req, res) {
   }
 
   let userData = req.body;
-  let updatedUser = await userModel.findOneAndUpdate({ _id: userId }, userData);
+  let updatedUser = await userModel.findOneAndUpdate({ _id: userId },{new:true}, userData);
   res.send({ status: updatedUser, data: updatedUser });
 };
 
+//5
+const DeleteUser = async function (req, res) {
+  // Check if the token is present
+  // Check if the token present is a valid token
+  //
+    let userId = req.params.userId;
+    let user = await userModel.findById(userId);
+    //Return an error if no user with the given id exists in the db
+    if (!user) {
+      return res.send("No such user exists");
+    }
+    let updatedUser = await userModel.findOneAndUpdate({ _id: userId },{$set:{isDeleted:true}},{new:true});
+    res.send({ status: updatedUser, data: updatedUser });
+  };
 module.exports.createUser = createUser;
 module.exports.getUserData = getUserData;
 module.exports.updateUser = updateUser;
 module.exports.loginUser = loginUser;
+module.exports.DeleteUser=DeleteUser;
